@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Flanked</title>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-    <!-- Google Fonts for Icons and Fonts -->
+    <!-- Google Fonts for Icons and Layout -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -316,12 +316,13 @@
     </div>
 
     <script>
-        // High-performance public Invidious instance with wide-open CORS permissions
-        const INVIDIOUS_API = "https://invidious.perennialte.ch";
+        // High-uptime, CORS-permissive public API node cluster
+        const INVIDIOUS_API = "https://iv.melmac.space";
 
         async function fetchSystemTrending() {
             try {
                 const response = await fetch(`${INVIDIOUS_API}/api/v1/trending?region=US`);
+                if (!response.ok) throw new Error("Server responded with code " + response.status);
                 const items = await response.json();
                 buildVideoCatalog(items);
             } catch (error) {
@@ -346,19 +347,23 @@
             const container = document.getElementById('home-view');
             container.innerHTML = ""; 
 
+            if(!dataset || dataset.length === 0) {
+                container.innerHTML = "<div style='padding:20px; color:var(--yt-text-sub);'>No videos found or instance rate-limited. Try again shortly.</div>";
+                return;
+            }
+
             dataset.forEach(item => {
                 const cardNode = document.createElement('div');
                 cardNode.className = 'video-card';
                 cardNode.onclick = () => instantiateStreamPlayback(item.videoId, item.title, item.author);
 
-                // Safely find the highest resolution thumbnail provided by the API
                 const thumbUrl = item.videoThumbnails && item.videoThumbnails.length > 0 
                     ? item.videoThumbnails.find(t => t.quality === 'medium' || t.quality === 'high')?.url || item.videoThumbnails[0].url
-                    : `https://invidious.perennialte.ch/vi/${item.videoId}/mqdefault.jpg`;
+                    : `https://images.weserv.nl/?url=https://img.youtube.com/vi/${item.videoId}/mqdefault.jpg`;
 
                 cardNode.innerHTML = `
                     <div class="thumb-wrapper">
-                        <img src="${thumbUrl}" alt="Thumbnail" loading="lazy">
+                        <img src="${thumbUrl}" alt="Thumbnail" loading="lazy" onerror="this.src='https://img.youtube.com/vi/${item.videoId}/mqdefault.jpg'">
                     </div>
                     <div class="video-meta-block">
                         <div class="channel-avatar"></div>
@@ -384,7 +389,7 @@
 
             const mediaNode = document.getElementById('html5-video-node');
             
-            // Invidious allows streaming natively from their playback endpoints with 0 ads
+            // Route streaming video data through the CORS-open backend node directly
             mediaNode.src = `${INVIDIOUS_API}/latest_version?id=${videoId}&itag=22`;
             mediaNode.load();
         }
