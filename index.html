@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Flanked</title>
-    <!-- Prevent favicon 404 errors -->
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-    <!-- Google Fonts for Layout and Icons -->
+    <!-- Google Fonts for Icons and Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -29,12 +28,7 @@
             font-style: normal;
             font-size: 24px;
             line-height: 1;
-            letter-spacing: normal;
-            text-transform: none;
             display: inline-block;
-            white-space: nowrap;
-            word-wrap: normal;
-            direction: ltr;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -54,7 +48,6 @@
             overflow: hidden;
         }
 
-        /* Top Navigation Header Bar */
         header {
             display: flex;
             justify-content: space-between;
@@ -85,9 +78,7 @@
             color: #fff;
         }
 
-        .menu-icon:hover {
-            background-color: #272727;
-        }
+        .menu-icon:hover { background-color: #272727; }
 
         .logo-container {
             display: flex;
@@ -133,7 +124,6 @@
             color: var(--yt-text-sub);
             margin-left: 4px;
             font-weight: 400;
-            letter-spacing: 0;
         }
 
         .center-section {
@@ -163,10 +153,6 @@
             font-size: 16px;
         }
 
-        .search-box input::placeholder {
-            color: #888;
-        }
-
         .search-btn {
             background-color: #222222;
             border: 1px solid var(--yt-border);
@@ -181,15 +167,6 @@
             color: #fff;
         }
 
-        .search-btn:hover {
-            background-color: #272727;
-        }
-
-        .right-section {
-            width: 40px;
-        }
-
-        /* Layout Structure */
         .app-body {
             display: flex;
             flex: 1;
@@ -197,7 +174,6 @@
             overflow: hidden;
         }
 
-        /* Sidebar Navigation */
         aside {
             width: 240px;
             background-color: var(--yt-sidebar-bg);
@@ -220,21 +196,9 @@
             gap: 24px;
         }
 
-        .sidebar-row:hover, .sidebar-row.active {
-            background-color: #272727;
-        }
+        .sidebar-row:hover, .sidebar-row.active { background-color: #272727; }
+        hr { border: none; border-top: 1px solid var(--yt-border); margin: 12px 0; }
 
-        .sidebar-row .material-symbols-outlined {
-            color: #fff;
-        }
-
-        hr {
-            border: none;
-            border-top: 1px solid var(--yt-border);
-            margin: 12px 0;
-        }
-
-        /* Main Feed Frame */
         main {
             flex: 1;
             background-color: var(--yt-main-bg);
@@ -242,19 +206,13 @@
             overflow-y: auto;
         }
 
-        /* Core Video Layout Architecture */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 40px 16px;
         }
 
-        .video-card {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            background: transparent;
-        }
+        .video-card { display: flex; flex-direction: column; cursor: pointer; }
 
         .thumb-wrapper {
             width: 100%;
@@ -262,20 +220,11 @@
             background-color: #272727;
             border-radius: 12px;
             overflow: hidden;
-            position: relative;
         }
 
-        .thumb-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .thumb-wrapper img { width: 100%; height: 100%; object-fit: cover; }
 
-        .video-meta-block {
-            display: flex;
-            margin-top: 12px;
-            gap: 12px;
-        }
+        .video-meta-block { display: flex; margin-top: 12px; gap: 12px; }
 
         .channel-avatar {
             width: 36px;
@@ -285,10 +234,7 @@
             flex-shrink: 0;
         }
 
-        .card-details {
-            display: flex;
-            flex-direction: column;
-        }
+        .card-details { display: flex; flex-direction: column; }
 
         .video-title-line {
             font-size: 14px;
@@ -302,15 +248,8 @@
             margin-bottom: 4px;
         }
 
-        .metadata-line {
-            font-size: 12px;
-            color: var(--yt-text-sub);
-            display: flex;
-            flex-direction: column;
-            line-height: 18px;
-        }
+        .metadata-line { font-size: 12px; color: var(--yt-text-sub); line-height: 18px; }
 
-        /* Watch Mode Area Layout */
         .theater-layout {
             display: none;
             grid-template-columns: 1fr;
@@ -319,105 +258,56 @@
             margin: 0 auto;
         }
 
-        .player-stage video {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background-color: #000;
-            border-radius: 12px;
-        }
+        .player-stage video { width: 100%; aspect-ratio: 16 / 9; background-color: #000; border-radius: 12px; }
+        .stage-title { font-size: 20px; font-weight: 700; margin: 12px 0 8px 0; }
+        .owner-details { display: flex; align-items: center; padding-bottom: 16px; border-bottom: 1px solid var(--yt-border); }
+        .channel-identity { display: flex; align-items: center; gap: 12px; }
+        .channel-identity .title { font-size: 16px; font-weight: 500; }
 
-        .stage-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin: 12px 0 8px 0;
-            line-height: 28px;
-        }
-
-        .owner-details {
-            display: flex;
-            align-items: center;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--yt-border);
-        }
-
-        .channel-identity {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .channel-identity .title {
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        /* Visibility Modifiers */
         .hidden { display: none !important; }
         .active-grid { display: grid !important; }
     </style>
 </head>
 <body>
 
-    <!-- Header Navbar Container -->
     <header>
         <div class="left-section">
-            <div class="menu-icon">
-                <span class="material-symbols-outlined">menu</span>
-            </div>
+            <div class="menu-icon"><span class="material-symbols-outlined">menu</span></div>
             <div class="logo-container" onclick="resetToHome()">
                 <div class="logo-img"></div>
                 <div class="logo-text">YouTube<span>Flanked</span></div>
             </div>
         </div>
-
         <div class="center-section">
             <div class="search-box">
                 <input type="text" id="query-input" placeholder="Search" onkeydown="if(event.key==='Enter')executeSearch()">
             </div>
-            <button class="search-btn" onclick="executeSearch()">
-                <span class="material-symbols-outlined">search</span>
-            </button>
+            <button class="search-btn" onclick="executeSearch()"><span class="material-symbols-outlined">search</span></button>
         </div>
-
-        <div class="right-section"></div>
+        <div style="width: 40px;"></div>
     </header>
 
     <div class="app-body">
-        <!-- Sidebar Infrastructure -->
         <aside>
             <div class="sidebar-row active" onclick="resetToHome()">
-                <span class="material-symbols-outlined">home</span>
-                <span>Home</span>
+                <span class="material-symbols-outlined">home</span><span>Home</span>
             </div>
-            <div class="sidebar-row">
-                <span class="material-symbols-outlined">play_arrow</span>
-                <span>Shorts</span>
-            </div>
-            <div class="sidebar-row">
-                <span class="material-symbols-outlined">subscriptions</span>
-                <span>Subscriptions</span>
-            </div>
+            <div class="sidebar-row"><span class="material-symbols-outlined">play_arrow</span><span>Shorts</span></div>
+            <div class="sidebar-row"><span class="material-symbols-outlined">subscriptions</span><span>Subscriptions</span></div>
             <hr>
-            <div class="sidebar-row">
-                <span class="material-symbols-outlined">video_library</span>
-                <span>Library</span>
-            </div>
+            <div class="sidebar-row"><span class="material-symbols-outlined">video_library</span><span>Library</span></div>
         </aside>
 
-        <!-- Dynamic Output Workspace -->
         <main>
-            <!-- Platform Home Video Catalog -->
             <div id="home-view" class="video-grid"></div>
-
-            <!-- Video Theatre View Container Layout -->
             <div id="theatre-view" class="theater-layout">
                 <div class="player-stage">
                     <video id="html5-video-node" controls autoplay></video>
-                    <div id="video-title-node" class="stage-title">Loading Stream Assets...</div>
+                    <div id="video-title-node" class="stage-title">Loading...</div>
                     <div class="owner-details">
                         <div class="channel-identity">
                             <div class="channel-avatar"></div>
-                            <div class="title" id="video-channel-node">Channel Name</div>
+                            <div class="title" id="video-channel-node">Channel</div>
                         </div>
                     </div>
                 </div>
@@ -426,63 +316,57 @@
     </div>
 
     <script>
-        const API_SERVER = "https://pipedapi.kavin.rocks";
-        const PROXY_URL = "https://api.allorigins.win/get?url=";
+        // High-performance public Invidious instance with wide-open CORS permissions
+        const INVIDIOUS_API = "https://invidious.perennialte.ch";
 
-        // Query platform trending index feeds securely through proxy wrapper
         async function fetchSystemTrending() {
             try {
-                const targetUrl = `${API_SERVER}/trending?region=US`;
-                const response = await fetch(`${PROXY_URL}${encodeURIComponent(targetUrl)}`);
-                const data = await response.json();
-                const items = JSON.parse(data.contents);
+                const response = await fetch(`${INVIDIOUS_API}/api/v1/trending?region=US`);
+                const items = await response.json();
                 buildVideoCatalog(items);
             } catch (error) {
-                console.error("Pipeline failure fetching root catalogs:", error);
+                console.error("Failed fetching layout catalog:", error);
             }
         }
 
-        // Initialize proxy-wrapped lookup search operations
         async function executeSearch() {
-            const rawQuery = document.getElementById('query-input').value.trim();
-            if (!rawQuery) return;
-
+            const query = document.getElementById('query-input').value.trim();
+            if (!query) return;
             try {
-                const targetUrl = `${API_SERVER}/search?q=${encodeURIComponent(rawQuery)}&filter=videos`;
-                const response = await fetch(`${PROXY_URL}${encodeURIComponent(targetUrl)}`);
-                const data = await response.json();
-                const searchResults = JSON.parse(data.contents);
+                const response = await fetch(`${INVIDIOUS_API}/api/v1/search?q=${encodeURIComponent(query)}&type=video`);
+                const items = await response.json();
                 resetToHome();
-                buildVideoCatalog(searchResults.items);
+                buildVideoCatalog(items);
             } catch (error) {
-                console.error("Pipeline discovery error on search index execution:", error);
+                console.error("Search call failed:", error);
             }
         }
 
-        // Generate clean document component frames
         function buildVideoCatalog(dataset) {
             const container = document.getElementById('home-view');
             container.innerHTML = ""; 
 
-            dataset.forEach(mediaItem => {
-                const mediaId = mediaItem.id || mediaItem.url?.split("v=")[1];
-                if (!mediaId) return;
-
+            dataset.forEach(item => {
                 const cardNode = document.createElement('div');
                 cardNode.className = 'video-card';
-                cardNode.onclick = () => instantiateStreamPlayback(mediaId, mediaItem.title, mediaItem.uploaderName || mediaItem.author);
+                cardNode.onclick = () => instantiateStreamPlayback(item.videoId, item.title, item.author);
+
+                // Safely find the highest resolution thumbnail provided by the API
+                const thumbUrl = item.videoThumbnails && item.videoThumbnails.length > 0 
+                    ? item.videoThumbnails.find(t => t.quality === 'medium' || t.quality === 'high')?.url || item.videoThumbnails[0].url
+                    : `https://invidious.perennialte.ch/vi/${item.videoId}/mqdefault.jpg`;
 
                 cardNode.innerHTML = `
                     <div class="thumb-wrapper">
-                        <img src="${mediaItem.thumbnail}" alt="Video Thumbnail" loading="lazy">
+                        <img src="${thumbUrl}" alt="Thumbnail" loading="lazy">
                     </div>
                     <div class="video-meta-block">
                         <div class="channel-avatar"></div>
                         <div class="card-details">
-                            <div class="video-title-line">${mediaItem.title}</div>
+                            <div class="video-title-line">${item.title}</div>
                             <div class="metadata-line">
-                                <div class="channel-name-line">${mediaItem.uploaderName || mediaItem.author}</div>
-                                <span>${mediaItem.viewCount?.toLocaleString() || 'No'} views</span>
+                                <div class="channel-name-line">${item.author}</div>
+                                <span>${item.viewCount?.toLocaleString() || '0'} views</span>
                             </div>
                         </div>
                     </div>
@@ -491,8 +375,7 @@
             });
         }
 
-        // Connect proxy endpoint to extract ad-free video streams
-        async function instantiateStreamPlayback(mediaId, title, author) {
+        function instantiateStreamPlayback(videoId, title, author) {
             document.getElementById('home-view').classList.add('hidden');
             document.getElementById('theatre-view').classList.add('active-grid');
 
@@ -500,27 +383,12 @@
             document.getElementById('video-channel-node').innerText = author;
 
             const mediaNode = document.getElementById('html5-video-node');
-            mediaNode.src = ""; 
-
-            try {
-                const targetUrl = `${API_SERVER}/streams/${mediaId}`;
-                const response = await fetch(`${PROXY_URL}${encodeURIComponent(targetUrl)}`);
-                const data = await response.json();
-                const streamData = JSON.parse(data.contents);
-
-                if (streamData.videoStreams && streamData.videoStreams.length > 0) {
-                    const cleanDirectUrl = streamData.videoStreams[0].url;
-                    mediaNode.src = cleanDirectUrl;
-                    mediaNode.load();
-                } else {
-                    alert("Stream extraction failed. Video streams could not be compiled.");
-                }
-            } catch (err) {
-                console.error("Stream extraction routing fault:", err);
-            }
+            
+            // Invidious allows streaming natively from their playback endpoints with 0 ads
+            mediaNode.src = `${INVIDIOUS_API}/latest_version?id=${videoId}&itag=22`;
+            mediaNode.load();
         }
 
-        // Return back to main dashboard home view
         function resetToHome() {
             document.getElementById('theatre-view').classList.remove('active-grid');
             document.getElementById('home-view').classList.remove('hidden');
