@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Flanked</title>
+    <!-- Prevent favicon 404 errors -->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <!-- Google Fonts for Layout and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,8 +23,7 @@
             --yt-red: #ff0000;
         }
 
-        /* Material Symbols Icon Sizing Configuration */
-        .material-symbols-outined, .ms-icon {
+        .material-symbols-outlined {
             font-family: 'Material Symbols Outlined';
             font-weight: normal;
             font-style: normal;
@@ -123,13 +124,12 @@
             font-weight: 700;
             letter-spacing: -1px;
             color: #ffffff;
-            position: relative;
             display: flex;
             align-items: center;
         }
 
         .logo-text span {
-            font-size: 10px;
+            font-size: 11px;
             color: var(--yt-text-sub);
             margin-left: 4px;
             font-weight: 400;
@@ -224,7 +224,7 @@
             background-color: #272727;
         }
 
-        .sidebar-row .ms-icon {
+        .sidebar-row .material-symbols-outlined {
             color: #fff;
         }
 
@@ -313,16 +313,10 @@
         /* Watch Mode Area Layout */
         .theater-layout {
             display: none;
-            grid-template-columns: 1fr 402px;
+            grid-template-columns: 1fr;
             gap: 24px;
-            max-width: 1750px;
+            max-width: 1280px;
             margin: 0 auto;
-        }
-
-        @media (max-width: 1000px) {
-            .theater-layout {
-                grid-template-columns: 1fr;
-            }
         }
 
         .player-stage video {
@@ -368,11 +362,11 @@
     <header>
         <div class="left-section">
             <div class="menu-icon">
-                <span class="ms-icon">menu</span>
+                <span class="material-symbols-outlined">menu</span>
             </div>
             <div class="logo-container" onclick="resetToHome()">
                 <div class="logo-img"></div>
-                <div class="logo-text">YouTube<span style="color: var(--yt-text-sub); font-size: 11px;">Flanked</span></div>
+                <div class="logo-text">YouTube<span>Flanked</span></div>
             </div>
         </div>
 
@@ -381,7 +375,7 @@
                 <input type="text" id="query-input" placeholder="Search" onkeydown="if(event.key==='Enter')executeSearch()">
             </div>
             <button class="search-btn" onclick="executeSearch()">
-                <span class="ms-icon">search</span>
+                <span class="material-symbols-outlined">search</span>
             </button>
         </div>
 
@@ -392,25 +386,25 @@
         <!-- Sidebar Infrastructure -->
         <aside>
             <div class="sidebar-row active" onclick="resetToHome()">
-                <span class="ms-icon">home</span>
+                <span class="material-symbols-outlined">home</span>
                 <span>Home</span>
             </div>
             <div class="sidebar-row">
-                <span class="ms-icon">play_arrow</span>
+                <span class="material-symbols-outlined">play_arrow</span>
                 <span>Shorts</span>
             </div>
             <div class="sidebar-row">
-                <span class="ms-icon">subscriptions</span>
+                <span class="material-symbols-outlined">subscriptions</span>
                 <span>Subscriptions</span>
             </div>
             <hr>
             <div class="sidebar-row">
-                <span class="ms-icon">video_library</span>
+                <span class="material-symbols-outlined">video_library</span>
                 <span>Library</span>
             </div>
         </aside>
 
-        <!-- Dynamic Output Mount Workspace -->
+        <!-- Dynamic Output Workspace -->
         <main>
             <!-- Platform Home Video Catalog -->
             <div id="home-view" class="video-grid"></div>
@@ -427,41 +421,45 @@
                         </div>
                     </div>
                 </div>
-                <div class="related-sidebar-feed"></div>
             </div>
         </main>
     </div>
 
     <script>
-        const API_SERVER = "https://pipedapi.colbybros.de";
+        const API_SERVER = "https://pipedapi.kavin.rocks";
+        const PROXY_URL = "https://api.allorigins.win/get?url=";
 
-        // Query server platform trending index feeds
+        // Query platform trending index feeds securely through proxy wrapper
         async function fetchSystemTrending() {
             try {
-                const response = await fetch(`${API_SERVER}/trending?region=US`);
-                const items = await response.json();
+                const targetUrl = `${API_SERVER}/trending?region=US`;
+                const response = await fetch(`${PROXY_URL}${encodeURIComponent(targetUrl)}`);
+                const data = await response.json();
+                const items = JSON.parse(data.contents);
                 buildVideoCatalog(items);
             } catch (error) {
                 console.error("Pipeline failure fetching root catalogs:", error);
             }
         }
 
-        // Initialize lookup search operations
+        // Initialize proxy-wrapped lookup search operations
         async function executeSearch() {
             const rawQuery = document.getElementById('query-input').value.trim();
             if (!rawQuery) return;
 
             try {
-                const response = await fetch(`${API_SERVER}/search?q=${encodeURIComponent(rawQuery)}&filter=videos`);
+                const targetUrl = `${API_SERVER}/search?q=${encodeURIComponent(rawQuery)}&filter=videos`;
+                const response = await fetch(`${PROXY_URL}${encodeURIComponent(targetUrl)}`);
                 const data = await response.json();
+                const searchResults = JSON.parse(data.contents);
                 resetToHome();
-                buildVideoCatalog(data.items);
+                buildVideoCatalog(searchResults.items);
             } catch (error) {
                 console.error("Pipeline discovery error on search index execution:", error);
             }
         }
 
-        // Generate dynamic video layout objects
+        // Generate clean document component frames
         function buildVideoCatalog(dataset) {
             const container = document.getElementById('home-view');
             container.innerHTML = ""; 
@@ -476,7 +474,7 @@
 
                 cardNode.innerHTML = `
                     <div class="thumb-wrapper">
-                        <img src="${mediaItem.thumbnail}" alt="Video Frame Asset" loading="lazy">
+                        <img src="${mediaItem.thumbnail}" alt="Video Thumbnail" loading="lazy">
                     </div>
                     <div class="video-meta-block">
                         <div class="channel-avatar"></div>
@@ -493,7 +491,7 @@
             });
         }
 
-        // Connect backends to bypass client ad wrappers natively
+        // Connect proxy endpoint to extract ad-free video streams
         async function instantiateStreamPlayback(mediaId, title, author) {
             document.getElementById('home-view').classList.add('hidden');
             document.getElementById('theatre-view').classList.add('active-grid');
@@ -505,22 +503,24 @@
             mediaNode.src = ""; 
 
             try {
-                const res = await fetch(`${API_SERVER}/streams/${mediaId}`);
-                const streamData = await res.json();
+                const targetUrl = `${API_SERVER}/streams/${mediaId}`;
+                const response = await fetch(`${PROXY_URL}${encodeURIComponent(targetUrl)}`);
+                const data = await response.json();
+                const streamData = JSON.parse(data.contents);
 
                 if (streamData.videoStreams && streamData.videoStreams.length > 0) {
                     const cleanDirectUrl = streamData.videoStreams[0].url;
                     mediaNode.src = cleanDirectUrl;
                     mediaNode.load();
                 } else {
-                    alert("Resource extraction failed. Stream assets could not be extracted.");
+                    alert("Stream extraction failed. Video streams could not be compiled.");
                 }
             } catch (err) {
                 console.error("Stream extraction routing fault:", err);
             }
         }
 
-        // Return back to core dashboard state grid mapping
+        // Return back to main dashboard home view
         function resetToHome() {
             document.getElementById('theatre-view').classList.remove('active-grid');
             document.getElementById('home-view').classList.remove('hidden');
